@@ -1,9 +1,11 @@
-#include"game.h"
+#include"Game.h"
+Game::Game(){}
+Game::~Game(){}
 
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscrean){
+void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen){
     int flags = 0;
 
-    if(fullscrean){
+    if(fullscreen){
         flags = SDL_WINDOW_FULLSCREEN;
     }
 
@@ -42,11 +44,15 @@ void Game::handleEvents(){
 void Game::update(){
 
 }
-void Game::reder(){
+void Game::render(){
+    SDL_RenderClear(renderer);
 
+    SDL_RenderPresent(renderer);
 }
 void Game::clean(){
-    
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    printf("Game Cleaned");
 }
 
 

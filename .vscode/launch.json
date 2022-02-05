@@ -1,8 +1,11 @@
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb)",
+            "name": "g++.exe - Kompiluj i debuguj aktywny plik",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\pong.exe",
@@ -15,12 +18,17 @@
             "miDebuggerPath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\gdb.exe",
             "setupCommands": [
                 {
-                    "description": "Enably pretty printing",
+                    "description": "Włącz formatowanie kodu dla gdb",
                     "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Ustaw wariant dezasemblacji na Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "SDL2"
+            "preLaunchTask": "C/C++: g++.exe kompiluj aktywny plik"
         }
     ]
 }
