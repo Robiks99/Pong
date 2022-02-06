@@ -1,10 +1,11 @@
 #include"Game.h"
+#include"Entity.h"
 Game::Game(){}
 Game::~Game(){}
-
+Entity* entity;
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen){
     int flags = 0;
-
+    
     if(fullscreen){
         flags = SDL_WINDOW_FULLSCREEN;
     }
@@ -21,13 +22,14 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
             SDL_SetRenderDrawColor(renderer,128,128,128,255);
             printf("Renderer initialized.\n");
         }
-
+        entity = new Entity(renderer);
         isRunning = true;
     }
     else
     {
         isRunning = false;
     }
+    
 }
 void Game::handleEvents(){
     SDL_Event event;
@@ -46,8 +48,12 @@ void Game::update(){
 }
 void Game::render(){
     SDL_RenderClear(renderer);
-
+    entity->render();
+    
+    
     SDL_RenderPresent(renderer);
+    SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
+
 }
 void Game::clean(){
     SDL_DestroyWindow(window);
