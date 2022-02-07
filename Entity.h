@@ -13,9 +13,11 @@ public:
     void update();
     void render();
 
-
-private:
     int xPos,yPos;
+    int xVel = 0, yVel = 0;
+    int speed = 1;
+private:
+    
     int height, width;
     SDL_Rect rect;
     SDL_Renderer* renderer;

@@ -42,6 +42,9 @@ void Entity::render(){
 }
 
 void Entity::update(){
+    xPos += xVel;
+    yPos += yVel;
     rect.x = xPos;
     rect.y = yPos;
+    printf("xPos %i, yPos %i",xPos, yPos);
 }
