@@ -4,6 +4,9 @@
 #include<SDL2/SDL.h>
 #include<stdio.h>
 
+#include"Player.h"
+#include"Ball.h" 
+#include"Enemy.h"
 
 class Game{
 public:
@@ -23,6 +26,8 @@ private:
     bool isRunning;
     SDL_Window* window;
     SDL_Renderer* renderer;
+
+    //SDL_rect rectArray[];
 };
 
 #endif

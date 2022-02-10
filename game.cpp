@@ -1,8 +1,11 @@
 #include"Game.h"
-#include"Entity.h"
+
+
 Game::Game(){}
 Game::~Game(){}
-Entity* entity;
+Player* player;
+Ball* ball;
+Enemy* enemy;
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen){
     int flags = 0;
     
@@ -19,10 +22,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
         renderer = SDL_CreateRenderer(window,-1,0);
         if(renderer){
-            SDL_SetRenderDrawColor(renderer,128,128,128,255);
             printf("Renderer initialized.\n");
         }
-        entity = new Entity(renderer);
+        player = new Player(renderer, window, 30,height/2,60,6);
+        enemy = new Enemy(renderer, window, width-30,height/2,60,6);
+        ball = new Ball(renderer, window);
+        //rectArray[] = {ball.GetRect(), player->getRect(), enemy->getRect()}
         isRunning = true;
     }
     else
@@ -33,23 +38,35 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 }
 void Game::handleEvents(){
     SDL_Event event;
-    SDL_PollEvent(&event);
-    switch(event.type){
-        case SDL_QUIT:
+    while( SDL_PollEvent( &event ) != 0  ){
+        //User requests quit
+        if( event.type == SDL_QUIT )
+        {
             isRunning = false;
-            break;
-        
-        default:
-            break;
+        }
+       
+        player->move(event);
     }
+    enemy->move(ball);
+
 }
 void Game::update(){
+    player->update();
+    ball->update();
+    enemy->update();
 
+    ball->checkEntityCollision(player->rect);
+    ball->checkEntityCollision(enemy->rect);
+    ball->checkYWallCollision();
+    ball->checkXWallCollision();
+    player->checkYWallCollision();
+    enemy->checkYWallCollision();
 }
 void Game::render(){
     SDL_RenderClear(renderer);
-    entity->render();
-    
+    player->render();
+    ball->render();
+    enemy->render();
     
     SDL_RenderPresent(renderer);
     SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
@@ -60,6 +77,5 @@ void Game::clean(){
     SDL_DestroyRenderer(renderer);
     printf("Game Cleaned");
 }
-
 
 
