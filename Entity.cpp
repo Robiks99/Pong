@@ -1,7 +1,8 @@
 #include"Entity.h"
 
-Entity::Entity(SDL_Renderer* Renderer){
+Entity::Entity(SDL_Renderer* Renderer, SDL_Window* Window){
     //Initializing variables
+    SDL_GetWindowSize(Window, &windowWidth, &windowHeight);
     renderer = Renderer;
     xPos = 100;
     yPos = 100;
@@ -17,8 +18,9 @@ Entity::Entity(SDL_Renderer* Renderer){
     SDL_RenderDrawRect(renderer, &rect);
     
 }
-Entity::Entity(SDL_Renderer* Renderer, int XPos, int YPos, int Height, int Width){
+Entity::Entity(SDL_Renderer* Renderer,SDL_Window* Window, int XPos, int YPos, int Height, int Width){
     //Initializing variables
+    SDL_GetWindowSize(Window, &windowWidth, &windowHeight);
     renderer = Renderer;
     xPos = XPos;
     yPos = YPos;
@@ -33,6 +35,9 @@ Entity::Entity(SDL_Renderer* Renderer, int XPos, int YPos, int Height, int Width
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderDrawRect(renderer, &rect);
 }
+Entity::~Entity(){
+    
+}
 
 void Entity::render(){
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -46,5 +51,13 @@ void Entity::update(){
     yPos += yVel;
     rect.x = xPos;
     rect.y = yPos;
-    printf("xPos %i, yPos %i",xPos, yPos);
+}
+
+void Entity::checkYWallCollision(){
+    if(yPos < 0){
+        yPos += speed;
+    }
+    if(yPos+height > windowHeight){
+        yPos -= speed;
+    }
 }

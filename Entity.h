@@ -6,20 +6,24 @@
 
 class Entity{
 public:
-    Entity(SDL_Renderer* renderer);
-    Entity(SDL_Renderer* renderer,int XPos, int YPos, int Height, int Width);
+    Entity(SDL_Renderer* renderer, SDL_Window* Window);
+    Entity(SDL_Renderer* renderer, SDL_Window* Window, int XPos, int YPos, int Height, int Width);
     ~Entity();
 
     void update();
     void render();
 
+    void checkYWallCollision();
+
+    
     int xPos,yPos;
+    int height, width;
     int xVel = 0, yVel = 0;
     int speed = 1;
-private:
-    
-    int height, width;
+    int windowHeight, windowWidth;
     SDL_Rect rect;
+    SDL_Window* window;
+private:
     SDL_Renderer* renderer;
 };
 
