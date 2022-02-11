@@ -12,7 +12,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     if(fullscreen){
         flags = SDL_WINDOW_FULLSCREEN;
     }
-
+        
+        //Initialize SDL
         if(SDL_Init(SDL_INIT_EVERYTHING) == 0){
             printf("Subsystem initialized.\n");
         
@@ -30,9 +31,13 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         //rectArray[] = {ball.GetRect(), player->getRect(), enemy->getRect()}
         isRunning = true;
     }
-    else
-    {
+    else{
         isRunning = false;
+    }
+    
+    //Initialize SDL_ttf
+    if( TTF_Init() == -1 ){
+        printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
     }
     
 }
