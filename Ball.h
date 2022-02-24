@@ -10,12 +10,14 @@ public:
     ~Ball();
 
     void checkEntityCollision(SDL_Rect Rect);
-    void move();
-    void checkXWallCollision();
+    void moveDelay();
+    bool checkLeftPlayerGoal();
+    bool checkRightPlayerGoal();
     void checkYWallCollision();
 
 private:
-    
+    Uint32 firstTick, currentTick;
+    int startDelay = 2000;//ms
 };
 
 
