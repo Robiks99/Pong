@@ -1,11 +1,11 @@
 #include"Player.h"
 
 Player::Player(SDL_Renderer* Renderer, SDL_Window* Window) : Entity(Renderer, Window){
-
+    speed = 80;
 }
 Player::Player(SDL_Renderer* Renderer, SDL_Window* Window, int XPos, int YPos, int Height, int Width) : 
 Entity(Renderer, Window, XPos, YPos, Height, Width){
-
+    speed = 80;
 }
 Player::~Player(){
 
@@ -17,8 +17,8 @@ void Player::move(SDL_Event Event){
     {
         switch( event.key.keysym.sym )
         {
-            case SDLK_w:  yVel = -speed; break;
-            case SDLK_s:  yVel = speed; break;
+            case SDLK_w:  yVel = -1; break;
+            case SDLK_s:  yVel = 1; break;
         }
         return;
     }
