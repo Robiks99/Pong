@@ -2,7 +2,8 @@
 
 Entity::Entity(SDL_Renderer* Renderer, SDL_Window* Window){
     //Initializing variables
-    SDL_GetWindowSize(Window, &windowWidth, &windowHeight);
+    window = Window;
+    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
     renderer = Renderer;
     xPos = 100;
     yPos = 100;
@@ -13,9 +14,6 @@ Entity::Entity(SDL_Renderer* Renderer, SDL_Window* Window){
     rect.y = yPos;
     rect.h = height;
     rect.w = width;
-    
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDrawRect(renderer, &rect);
     
 }
 Entity::Entity(SDL_Renderer* Renderer,SDL_Window* Window, int XPos, int YPos, int Height, int Width){
@@ -31,9 +29,6 @@ Entity::Entity(SDL_Renderer* Renderer,SDL_Window* Window, int XPos, int YPos, in
     rect.y = yPos;
     rect.h = height;
     rect.w = width;
-
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDrawRect(renderer, &rect);
 }
 Entity::~Entity(){
     
@@ -41,23 +36,21 @@ Entity::~Entity(){
 
 void Entity::render(){
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    
     SDL_RenderDrawRect(renderer, &rect);
-    
 }
 
-void Entity::update(){
-    xPos += xVel;
-    yPos += yVel;
+void Entity::update(float dT){
+    xPos += (xVel*speed)*dT;
+    yPos += (yVel*speed)*dT;
     rect.x = xPos;
     rect.y = yPos;
 }
 
 void Entity::checkYWallCollision(){
     if(yPos < 0){
-        yPos += speed;
+        yPos = 0;
     }
     if(yPos+height > windowHeight){
-        yPos -= speed;
+        yPos = windowHeight-height;
     }
 }
