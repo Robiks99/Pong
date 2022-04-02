@@ -16,7 +16,10 @@
 				"-lSDL2main",
 				"-lSDL2",
                 "-lSDL2_ttf",
-				"-mwindows"
+				"-static-libgcc",
+                "-Wl,-Bstatic,--whole-archive",
+                "-lwinpthread",
+                "-Wl,--no-whole-archive"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
